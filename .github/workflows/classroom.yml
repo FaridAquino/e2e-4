@@ -1,0 +1,78 @@
+name: Autograding Tests
+
+on:
+  push:
+    branches:
+      - main
+      - feat/solution
+  workflow_dispatch:
+  repository_dispatch:
+
+permissions:
+  checks: write
+  actions: read
+  contents: read
+
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v2
+        with:
+          java-version: '17'
+          distribution: 'adopt'
+
+      - name: DriverControllerSecurityTest
+        id: driver_controller_security_test
+        uses: education/autograding-command-grader@v1
+        with:
+          test-name: DriverControllerSecurityTest
+          setup-command: mvn compile
+          command: mvn clean test -PDriverControllerSecurityTest
+          timeout: 10
+          max-score: 5
+
+      - name: PassengerControllerSecurityTest
+        id: passenger_controller_security_test
+        uses: education/autograding-command-grader@v1
+        with:
+          test-name: PassengerControllerSecurityTest
+          setup-command: mvn compile
+          command: mvn clean test -PPassengerControllerSecurityTest
+          timeout: 10
+          max-score: 5
+
+      - name: ReviewControllerSecurityTest
+        id: review_controller_security_test
+        uses: education/autograding-command-grader@v1
+        with:
+          test-name: ReviewControllerSecurityTest
+          setup-command: mvn compile
+          command: mvn clean test -PReviewControllerSecurityTest
+          timeout: 10
+          max-score: 5
+
+      - name: RideControllerSecurityTest
+        id: ride_controller_security_test
+        uses: education/autograding-command-grader@v1
+        with:
+          test-name: RideControllerSecurityTest
+          setup-command: mvn compile
+          command: mvn clean test -PRideControllerSecurityTest
+          timeout: 10
+          max-score: 5
+
+      - name: Autograding Reporter
+        uses: education/autograding-grading-reporter@v1
+        env:
+          DRIVER_CONTROLLER_SECURITY_TEST_RESULTS: "${{steps.driver_controller_security_test.outputs.result}}"
+          PASSENGER_CONTROLLER_SECURITY_TEST_RESULTS: "${{steps.passenger_controller_security_test.outputs.result}}"
+          REVIEW_CONTROLLER_SECURITY_TEST_RESULTS: "${{steps.review_controller_security_test.outputs.result}}"
+          RIDE_CONTROLLER_SECURITY_TEST_RESULTS: "${{steps.ride_controller_security_test.outputs.result}}"
+        with:
+          runners: driver_controller_security_test,passenger_controller_security_test,review_controller_security_test,ride_controller_security_test
