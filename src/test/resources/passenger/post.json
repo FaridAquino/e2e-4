@@ -1,0 +1,9 @@
+{
+  "firstName": "Jane",
+  "lastName": "Doe",
+  "email": "janedoe@example.com",
+  "password": "mysecretpassword",
+  "phoneNumber": "789-456-123",
+  "category": "X",
+  "isDriver": false
+}

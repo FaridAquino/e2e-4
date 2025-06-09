@@ -1,0 +1,13 @@
+{
+  "originName": "Home",
+  "destinationName": "Universidad",
+  "price": 20,
+  "originCoordinates": {
+    "latitude": "40.01",
+    "longitude": "30.02"
+  },
+  "destinationCoordinates": {
+    "latitude": "80.2",
+    "longitude": "30.01"
+  }
+}

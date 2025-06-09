@@ -1,0 +1,17 @@
+{
+  "firstName": "John",
+  "lastName": "Doe",
+  "email": "johndoe@example.com",
+  "password": "mysecretpassword",
+  "phoneNumber": "123-456-7890",
+  "isDriver": true,
+  "category": "X",
+  "vehicle": {
+    "brand": "Toyota",
+    "model": "Camry",
+    "licensePlate": "ABC124",
+    "fabricationYear": 2018,
+    "capacity": 5,
+    "color": "Blue"
+  }
+}
